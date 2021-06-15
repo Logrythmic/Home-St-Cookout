@@ -16,7 +16,7 @@ app.set('views', 'server/templates');
 app.set('view engine', 'html');
 
 app.use(session(sess));
-app.use(express.static('public'));
+app.use(express.static('server/public'));
 
 // ----------------------------------------------------------------------------
 //                          LINK AND USE ROUTES                                
@@ -35,7 +35,7 @@ app.use('/vendors', vendorsRouter);
 // ----------------------------------------------------------------------------
 
 app.get('*', (req, res)=>{
-  res.redirect('404.html');
+  res.render('404');
   // res.json({
   //   "catch":"all"
   // });

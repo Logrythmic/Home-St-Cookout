@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
       res.json(oneUser);
   } catch (e) {
       console.log(e);
-      res.status(404).redirect('404.html');
+      res.status(404).redirect('*');
   }
 });
 
