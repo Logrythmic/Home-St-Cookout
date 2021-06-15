@@ -1,14 +1,22 @@
 require('dotenv').config()
 const express = require('express');
+const session = require('express-session');
 const es6Renderer = require('express-es6-template-engine');
 const app = express();
 const Sequelize = require('sequelize');
 const { User } = require('./models');
   
+const sess = {
+  secret:"nueral handshake",
+  cookie: {maxAge: 60000}
+}
   
 app.engine('html', es6Renderer);
-app.set('views', 'templates');
+app.set('views', 'server/templates');
 app.set('view engine', 'html');
+
+app.use(session(sess));
+app.use(express.static('public'));
 
 // ----------------------------------------------------------------------------
 //                          LINK AND USE ROUTES                                
@@ -27,9 +35,10 @@ app.use('/vendors', vendorsRouter);
 // ----------------------------------------------------------------------------
 
 app.get('*', (req, res)=>{
-  res.json({
-    "catch":"all"
-  });
+  res.redirect('404.html');
+  // res.json({
+  //   "catch":"all"
+  // });
 })
 
 // ----------------------------------------------------------------------------
