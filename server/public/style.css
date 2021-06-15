@@ -3,3 +3,17 @@
   flex: grid;
   flex-wrap: wrap;
 }
+
+.button {
+  float: right;
+}
+
+.card-title{
+  font-size: 2rem;
+  text-align: center;
+}
+
+.card-text{
+  font-size: 1rem;
+  text-align: center;
+}
