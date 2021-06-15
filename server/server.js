@@ -5,10 +5,9 @@ const app = express();
 const session = require('express-session');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
-const homeRouter = require('./routes/home');
-const usersRouter = require('./routes/user');
-const vendorsRouter = require('./routes/vendor');
-const loginRouter = require("./routes/login");
+const Sequelize = require('sequelize');
+const { User } = require('./models');
+  
 
 app.engine('html', es6Renderer);
 app.set('views', 'server/templates');
@@ -20,9 +19,27 @@ passport.serializeUser(function(user, cb){
   cb(null, user.id);
 });
 
+
 passport.deserializeUser(function(id, cb){
   cb(null, id);
 });
+
+// ----------------------------------------------------------------------------
+//                          LINK AND USE ROUTES                                
+// ----------------------------------------------------------------------------
+
+const homeRouter = require('./routes/home');
+const usersRouter = require('./routes/user');
+const vendorsRouter = require('./routes/vendor');
+
+app.use('/events', homeRouter);
+app.use('/users', usersRouter);
+app.use('/vendors', vendorsRouter);
+
+// ----------------------------------------------------------------------------
+//                                CATCH ALL                                    
+// ----------------------------------------------------------------------------
+
 
 app.use(session({
   secret: 'keyboard cat',
@@ -90,13 +107,12 @@ app.get('/auth/github/callback',
 // }));
 
 
+// ----------------------------------------------------------------------------
+//                             LISTENING PORT                                  
+// ----------------------------------------------------------------------------
+
+
 app.listen('3030', ()=>{
   console.log('Server is running at port 3030');
 })
 
-
-
-// app.use('/events', homeRouter);
-// app.use('/users', usersRouter);
-// app.use('/vendors', vendorsRouter);
-// app.use('/login', loginRouter);
