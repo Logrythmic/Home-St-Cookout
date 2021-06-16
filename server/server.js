@@ -3,7 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const es6Renderer = require('express-es6-template-engine');
 const app = express();
-const session = require('express-session');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const Sequelize = require('sequelize');
@@ -24,7 +23,7 @@ passport.deserializeUser(function(id, cb){
   cb(null, id);
 });
 
-app.use(session(sess));
+// app.use(session(sess));
 app.use(express.static('server/public'));
 
 // ----------------------------------------------------------------------------
