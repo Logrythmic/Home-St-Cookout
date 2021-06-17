@@ -35,7 +35,7 @@ const usersRouter = require('./routes/user');
 const vendorsRouter = require('./routes/vendor');
 
 app.use('/events', homeRouter);
-app.use('/users', usersRouter);
+app.use('/users', isAuth, usersRouter);
 app.use('/vendors', vendorsRouter);
 
 
@@ -69,13 +69,13 @@ const isAuth = (req,res,next) =>{
   }
 }
 
-app.get('/', (req, res) =>{
-  res.render('dashboard');
-})
+// app.get('/', (req, res) =>{
+//   res.render('dashboard');
+// })
 
 app.get('/login', (req,res) =>{
   if(req.user){
-    return res.redirect('/');
+    return res.redirect('/events');
   }
   res.render('login');
 });
