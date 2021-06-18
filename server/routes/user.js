@@ -24,9 +24,7 @@ router.get('/:id', async (req, res) => {
       res.json(oneUser);
   } catch (e) {
       console.log(e);
-      res.status(404).json({
-          message: 'User not found'
-      });
+      res.status(404).redirect('*');
   }
 });
 

@@ -1,14 +1,13 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const es6Renderer = require('express-es6-template-engine');
 const app = express();
-const session = require('express-session');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const Sequelize = require('sequelize');
 const { User } = require('./models');
   
-
 app.engine('html', es6Renderer);
 app.set('views', 'server/templates');
 app.set('view engine', 'html');
@@ -24,6 +23,9 @@ passport.deserializeUser(function(id, cb){
   cb(null, id);
 });
 
+// app.use(session(sess));
+app.use(express.static('server/public'));
+
 // ----------------------------------------------------------------------------
 //                          LINK AND USE ROUTES                                
 // ----------------------------------------------------------------------------
@@ -33,12 +35,8 @@ const usersRouter = require('./routes/user');
 const vendorsRouter = require('./routes/vendor');
 
 app.use('/events', homeRouter);
-app.use('/users', usersRouter);
+app.use('/users', isAuth, usersRouter);
 app.use('/vendors', vendorsRouter);
-
-// ----------------------------------------------------------------------------
-//                                CATCH ALL                                    
-// ----------------------------------------------------------------------------
 
 
 app.use(session({
@@ -71,13 +69,13 @@ const isAuth = (req,res,next) =>{
   }
 }
 
-app.get('/', (req, res) =>{
-  res.render('dashboard');
-})
+// app.get('/', (req, res) =>{
+//   res.render('dashboard');
+// })
 
 app.get('/login', (req,res) =>{
   if(req.user){
-    return res.redirect('/');
+    return res.redirect('/events');
   }
   res.render('login');
 });
@@ -106,6 +104,17 @@ app.get('/auth/github/callback',
 //   SaveUninitialzed: false
 // }));
 
+
+// ----------------------------------------------------------------------------
+//                                CATCH ALL                                    
+// ----------------------------------------------------------------------------
+
+app.get('*', (req, res)=>{
+  res.render('404');
+  // res.json({
+  //   "catch":"all"
+  // });
+});
 
 // ----------------------------------------------------------------------------
 //                             LISTENING PORT                                  
