@@ -1,0 +1,8 @@
+body {
+    background-image: url("vendorbackground.jpg");
+}
+
+.container {
+    border: 1px;
+    border-style: solid;
+}

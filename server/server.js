@@ -72,7 +72,7 @@ const isAuth = (req,res,next) =>{
 }
 
 app.get('/', (req, res) =>{
-  res.render('dashboard');
+  res.render('home');
 })
 
 app.get('/login', (req,res) =>{
