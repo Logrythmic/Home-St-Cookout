@@ -12,10 +12,21 @@ app.engine('html', es6Renderer);
 app.set('views', 'server/templates');
 app.set('view engine', 'html');
 app.use(express.urlencoded({extended: false}));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { httpOnly: true,
+  // secure: false,
+  maxAge: 24 * 60 * 60 * 1000, 
+},
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(function(user, cb){
-  cb(null, user.id);
+  cb(null, user);
 });
 
 
@@ -24,49 +35,42 @@ passport.deserializeUser(function(id, cb){
 });
 
 // app.use(session(sess));
-app.use(express.static('server/public'));
+// app.use(express.static('server/public'));
+app.use('/', express.static(__dirname + '/public'));
 
 // ----------------------------------------------------------------------------
-//                          LINK AND USE ROUTES                                
+//                                  Auth Routes                                
 // ----------------------------------------------------------------------------
 
-const homeRouter = require('./routes/home');
-const usersRouter = require('./routes/user');
-const vendorsRouter = require('./routes/vendor');
-
-app.use('/events', homeRouter);
-app.use('/users', isAuth, usersRouter);
-app.use('/vendors', vendorsRouter);
-
-
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { httpOnly: true,
-  secure: false,
-  maxAge: 24 * 60 * 60 * 1000, 
-},
-}));
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { httpOnly: true,
+//   // secure: false,
+//   maxAge: 24 * 60 * 60 * 1000, 
+// },
+// }));
 
 passport.use(new GitHubStrategy({
-    clientID: '64704c03c40f4734a242',
-    clientSecret: 'c997d2c08e13a2c9063ea90b0bcb7d0e5d0f17ba',
-    callbackURL: "http://127.0.0.1:3030/auth/github/callback"
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: process.env.GITHUB_CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+    // console.log(profile);
     cb(null, profile);
     }
   )
 );
 
-const isAuth = (req,res,next) =>{
-  if(req.user){
-    next();
-  } else {
-    res.redirect('/login');
-  }
+function isAuth(req,res,next){
+  if(req.isAuthenticated()){
+     return next();
+  } 
+  
+  res.redirect('/login');
+   
 }
 
 // app.get('/', (req, res) =>{
@@ -93,7 +97,7 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/events');
   });
   
 
@@ -104,13 +108,33 @@ app.get('/auth/github/callback',
 //   SaveUninitialzed: false
 // }));
 
+// ----------------------------------------------------------------------------
+//                          LINK AND USE ROUTES                                
+// ----------------------------------------------------------------------------
+
+const homeRouter = require('./routes/home');
+const usersRouter = require('./routes/user');
+const vendorsRouter = require('./routes/vendor');
+
+app.use('/events', homeRouter);
+app.use('/users', isAuth, usersRouter);
+app.use('/vendors', isAuth, vendorsRouter);
 
 // ----------------------------------------------------------------------------
 //                                CATCH ALL                                    
 // ----------------------------------------------------------------------------
 
 app.get('*', (req, res)=>{
-  res.render('404');
+  res.render('404',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
   // res.json({
   //   "catch":"all"
   // });
