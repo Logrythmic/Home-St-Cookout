@@ -1,29 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <link rel="stylesheet" href="../public/style.css" />
-  <title>Home St</title>
-</head>
+${head}
 <body>
-  <header>
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Events</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Login</a>
-      </li>
-    </ul>
-  </header>
+  ${header}
   <main>
-    <h1>${test}</h1>
     <div class="events">
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
@@ -35,7 +15,7 @@
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <div class="button">
-                  <a href="#" class="btn btn-primary">RSVP</a>
+                  <a href="/pre-order.html" class="btn btn-primary">RSVP</a>
                   <a href="#" class="btn btn-primary">RSVP2</a>
                 </div>
               </div>
@@ -78,6 +58,6 @@
       </div>
     </div>
   </main>
-  
+  ${footer}
 </body>
 </html>

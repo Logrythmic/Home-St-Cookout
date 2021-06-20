@@ -35,8 +35,8 @@ passport.deserializeUser(function(id, cb){
 });
 
 // app.use(session(sess));
-app.use(express.static('server/public'));
-
+// app.use(express.static('server/public'));
+app.use('/', express.static(__dirname + '/public'));
 
 // ----------------------------------------------------------------------------
 //                                  Auth Routes                                
@@ -97,7 +97,7 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/users');
+    res.redirect('/events');
   });
   
 
@@ -116,7 +116,7 @@ const homeRouter = require('./routes/home');
 const usersRouter = require('./routes/user');
 const vendorsRouter = require('./routes/vendor');
 
-app.use('/events', isAuth, homeRouter);
+app.use('/events', homeRouter);
 app.use('/users', isAuth, usersRouter);
 app.use('/vendors', isAuth, vendorsRouter);
 
@@ -125,7 +125,16 @@ app.use('/vendors', isAuth, vendorsRouter);
 // ----------------------------------------------------------------------------
 
 app.get('*', (req, res)=>{
-  res.render('404');
+  res.render('404',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
   // res.json({
   //   "catch":"all"
   // });

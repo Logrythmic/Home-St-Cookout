@@ -8,8 +8,13 @@ const router = express.Router();
 
 router.get('/', (req,res)=>{
   res.render('home',{
-    locals:{
-      test:"test message for home route"
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
     }
   });
   // res.json({
