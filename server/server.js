@@ -120,6 +120,18 @@ app.use('/events', homeRouter);
 app.use('/users', isAuth, usersRouter);
 app.use('/vendors', isAuth, vendorsRouter);
 
+app.get('/about-us', (req, res)=>{
+  res.render('about',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
+});
 // ----------------------------------------------------------------------------
 //                                CATCH ALL                                    
 // ----------------------------------------------------------------------------
