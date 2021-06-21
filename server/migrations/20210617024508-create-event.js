@@ -38,13 +38,22 @@ module.exports = {
       numOrders: {
         type: Sequelize.INTEGER
       },
-      food1: {
+      food1Name: {
+        type: Sequelize.STRING
+      },
+      food1Count: {
         type: Sequelize.INTEGER
       },
-      food2: {
+      food2Name: {
+        type: Sequelize.STRING
+      },
+      food2Count: {
         type: Sequelize.INTEGER
       },
-      food3: {
+      food3Name: {
+        type: Sequelize.STRING
+      },
+      food3Count: {
         type: Sequelize.INTEGER
       },
       hostUserId: {

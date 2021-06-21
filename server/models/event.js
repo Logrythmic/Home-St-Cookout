@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Event.belongsTo(models.User,{
+        foreignKey: 'hostUserId',
+        onDelete: 'CASCADE'
+      })
+      Event.hasMany(models.Order,{
+        foreignKey: "eventId"
+      })
     }
   };
   Event.init({
@@ -24,9 +31,12 @@ module.exports = (sequelize, DataTypes) => {
     zip: DataTypes.STRING,
     numAttendee: DataTypes.INTEGER,
     numOrders: DataTypes.INTEGER,
-    food1: DataTypes.INTEGER,
-    food2: DataTypes.INTEGER,
-    food3: DataTypes.INTEGER,
+    food1Name: DataTypes.STRING,
+    food1Count: DataTypes.INTEGER,
+    food2Name: DataTypes.STRING,
+    food2Count: DataTypes.INTEGER,
+    food3Name: DataTypes.STRING,
+    food3Count: DataTypes.INTEGER,
     hostUserId: DataTypes.INTEGER,
     contactEmail: DataTypes.STRING
   }, {

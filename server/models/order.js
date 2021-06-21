@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Order.belongsTo(models.Event,{
+        foreignKey: 'eventId',
+        onDelete: 'CASCADE'
+      })
+      Order.belongsTo(models.User,{
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      })
     }
   };
   Order.init({

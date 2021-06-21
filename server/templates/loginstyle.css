@@ -1,8 +1,57 @@
+*{
+    font-family: 'Lato', sans-serif;
+}
+
 body {
-    background-image: url("vendorbackground.jpg");
+    background-color: blue;
 }
 
 .container {
     border: 1px;
     border-style: solid;
+}
+
+.login-div{
+    margin: 100px auto;
+    width: 350px;
+    background-color: white;
+    padding: 60px;
+}
+
+.logo{
+    background-color: #59c9fc;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.logo img{
+    width: 100%;
+}
+
+.title, .sub-title {
+    text-align: center;
+    color: #505050;
+}
+
+.title{
+    font-weight: bolder;
+    font-size: 35px;
+}
+
+.sub-title{
+    font-size: 18px;
+}
+
+button.signin-btn {
+    width:100%;
+    padding: 12px 10px;
+    border: none;
+    font-size: 18px;
+    border-radius: 30px;
+    background-color: #59c9fc;
+    color: #fff;
+    margin-bottom: 5px;
 }
