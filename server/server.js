@@ -12,7 +12,7 @@ app.engine('html', es6Renderer);
 app.set('views', 'server/templates');
 app.set('view engine', 'html');
 app.use(express.urlencoded({extended: false}));
-
+app.use(express.json());
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -25,8 +25,29 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new GitHubStrategy({
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: process.env.GITHUB_CALLBACK_URL
+},
+async function(accessToken, refreshToken, profile, cb) {
+  console.log(profile);
+  let user = await User.findOrCreate({
+    where: {
+      // avatarURL:        profile.photos[0].value,
+      loginStrategy:    profile.provider,
+      loginStrategyId:  profile.id,
+      username:         profile.username
+    }
+  });
+  cb(null, profile);
+  }
+)
+);
+
 passport.serializeUser(function(user, cb){
-  cb(null, user);
+  cb(null, user.id);
 });
 
 
@@ -51,18 +72,6 @@ app.use('/', express.static(__dirname + '/public'));
 //   maxAge: 24 * 60 * 60 * 1000, 
 // },
 // }));
-
-passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.GITHUB_CALLBACK_URL
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    // console.log(profile);
-    cb(null, profile);
-    }
-  )
-);
 
 function isAuth(req,res,next){
   if(req.isAuthenticated()){
@@ -98,15 +107,10 @@ app.get('/auth/github/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/events');
-  });
-  
+  }
+);
 
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET,
-//   resave: false,
-//   SaveUninitialzed: false
-// }));
 
 // ----------------------------------------------------------------------------
 //                          LINK AND USE ROUTES                                
@@ -117,7 +121,7 @@ const usersRouter = require('./routes/user');
 const vendorsRouter = require('./routes/vendor');
 
 app.use('/events', homeRouter);
-app.use('/users', isAuth, usersRouter);
+app.use('/users', usersRouter);
 app.use('/vendors', isAuth, vendorsRouter);
 
 // ----------------------------------------------------------------------------
@@ -135,9 +139,6 @@ app.get('*', (req, res)=>{
       header: 'partials/header'
     }
   });
-  // res.json({
-  //   "catch":"all"
-  // });
 });
 
 // ----------------------------------------------------------------------------

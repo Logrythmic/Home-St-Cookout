@@ -11,12 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Event,{
+        foreignKey: 'hostUserId'
+      })
+      User.hasMany(models.Order,{
+        foreignKey: 'userId'
+      })
     }
   }
   User.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
+    loginStrategy: DataTypes.STRING,
+    loginStrategyId: DataTypes.STRING,
+    username: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     isVendor: DataTypes.BOOLEAN,
     address: DataTypes.STRING,
