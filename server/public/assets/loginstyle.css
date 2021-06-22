@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: blue;
+    background-color:#59c9fc;
 }
 
 .container {
@@ -20,8 +20,8 @@ body {
 
 .logo{
     background-color: #59c9fc;
-    width: 150px;
-    height: 150px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 10px;
@@ -38,14 +38,15 @@ body {
 
 .title{
     font-weight: bolder;
-    font-size: 35px;
+    font-size: 22px;
 }
 
 .sub-title{
+    text-align: center;
     font-size: 18px;
 }
 
-button.signin-btn {
+.signin-btn {
     width:100%;
     padding: 12px 10px;
     border: none;
@@ -54,4 +55,5 @@ button.signin-btn {
     background-color: #59c9fc;
     color: #fff;
     margin-bottom: 5px;
+    text-align: center;
 }

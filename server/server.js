@@ -90,7 +90,16 @@ app.get('/login', (req,res) =>{
   if(req.user){
     return res.redirect('/events');
   }
-  res.render('login');
+  res.render('login',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
 });
 
 app.get('/logout', (req,res) =>{
