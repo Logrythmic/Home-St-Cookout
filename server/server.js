@@ -90,7 +90,16 @@ app.get('/login', (req,res) =>{
   if(req.user){
     return res.redirect('/events');
   }
-  res.render('login');
+  res.render('login',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
 });
 
 app.get('/logout', (req,res) =>{
@@ -124,6 +133,18 @@ app.use('/events', homeRouter);
 app.use('/users', usersRouter);
 app.use('/vendors', isAuth, vendorsRouter);
 
+app.get('/about-us', (req, res)=>{
+  res.render('about',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
+});
 // ----------------------------------------------------------------------------
 //                                CATCH ALL                                    
 // ----------------------------------------------------------------------------
