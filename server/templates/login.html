@@ -1,13 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    ${head}
+    <link rel="stylesheet" type="text/css" href="./assets/loginstyle.css">
 <body>
-    <h1>Login</h1>
-<a href="/auth/github">login with github</a>
+    ${header}
+    <div class="login-div">
+        <div class="logo">
+            <img src="./assets/logo.png" alt="...">
+        </div>
+            <div class="title">Home St Cookout</div>
+            <div class="subtitle">Welcome</div>
+            <div id="loginEvent">
+            <a class="sigin-btn btn btn-primary" href="/auth/github" role="button">Login with Github</a>
+            </div>
+    </div>
+    ${footer}
 </body>
 </html>
