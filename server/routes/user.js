@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Sequelize = require('sequelize');
 const { User, Event, Order } = require('../models');
+const isAuth = require('../middleware/ensureAuth');
+const { profile } = require('console');
 
 // ----------------------------------------------------------------------------
 //                                READ                                       
@@ -13,11 +15,24 @@ router.get('/', async (req,res)=>{
 })
 
 router.get('/my-events', async (req,res)=>{
-  const events = await Event.findAll();  
+  const proId = await User.findOne({
+    where:{
+      loginStrategyId: req.session.passport.user
+    }
+  })
+  const id = proId.id;
+  const events = await Order.findAll({
+    where:{
+      userId : id
+    },
+    include:[{
+      model: Event
+    }]
+  });  
   res.json(events)
 })
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', isAuth, async (req, res) => {
   const profileId = await User.findOne({
     where:{
       loginStrategyId: req.session.passport.user
@@ -26,7 +41,7 @@ router.get('/profile', async (req, res) => {
   res.redirect(`users/${profileId.id}`);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   try{
     if(!id) {
@@ -72,7 +87,7 @@ router.get('/:id', async (req, res) => {
 // ----------------------------------------------------------------------------
 //                                CREATE                                       
 // ----------------------------------------------------------------------------
-router.post('/create-profile', async (req,res)=>{
+router.post('/create-profile', isAuth, async (req,res)=>{
   const { firstName,lastName,email,phoneNumber,isVendor,
     address,address2,city,state,zip } = req.body;
 
@@ -99,7 +114,7 @@ router.post('/create-profile', async (req,res)=>{
 // ----------------------------------------------------------------------------
 //                                UPDATE                                       
 // ----------------------------------------------------------------------------
-router.post('/:id', async (req, res) => {
+router.post('/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   const { firstName,lastName,email,phoneNumber,isVendor,
     address,address2,city,state,zip } = req.body;
@@ -118,7 +133,7 @@ router.post('/:id', async (req, res) => {
 //                                DELETE                                       
 // ----------------------------------------------------------------------------
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   const deletedUser = await User.destroy({
       where: {

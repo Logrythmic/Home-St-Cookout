@@ -73,14 +73,14 @@ app.use('/', express.static(__dirname + '/public'));
 // },
 // }));
 
-function isAuth(req,res,next){
-  if(req.isAuthenticated()){
-     return next();
-  } 
+// function isAuth(req,res,next){
+//   if(req.isAuthenticated()){
+//      return next();
+//   } 
   
-  res.redirect('/login');
-   
-}
+//   res.redirect('/login');
+//    
+// }
 
 // app.get('/', (req, res) =>{
 //   res.render('dashboard');
@@ -127,11 +127,11 @@ app.get('/auth/github/callback',
 
 const homeRouter = require('./routes/home');
 const usersRouter = require('./routes/user');
-const vendorsRouter = require('./routes/vendor');
+// const vendorsRouter = require('./routes/vendor');
 
 app.use('/events', homeRouter);
 app.use('/users', usersRouter);
-app.use('/vendors', vendorsRouter);
+// app.use('/vendors', vendorsRouter);
 
 app.get('/about-us', (req, res)=>{
   res.render('about',{
