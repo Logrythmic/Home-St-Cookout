@@ -7,10 +7,10 @@ ${head}
     <div>
       <h1>Hello ${userData.username}</h1>
       <h2>Events</h2>
-      <p>You have the following order at ${userData.Events.eventName}</p>
+      <p>You have the following order at ${userData.Events[0].eventName}</p>
       <ul>
-        <li>${userData.Orders.foodQty1} orders of ${userData.Events.food1Name}</li>
-        <li>${userData.Orders.foodQty2} orders of ${userData.Events.food2Name}</li>
+        <li>${userData.Orders[0].foodQty1} order(s) of ${userData.Events[0].food1Name}</li>
+        <li>${userData.Orders[0].foodQty2} order(s) of ${userData.Events[0].food2Name}</li>
       </ul>
       <p>We hope you enjoy your meal!</p>
     </div>

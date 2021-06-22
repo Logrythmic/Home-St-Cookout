@@ -18,7 +18,12 @@ router.get('/my-events', async (req,res)=>{
 })
 
 router.get('/profile', async (req, res) => {
-  res.redirect(`users/${req.session.passport.user}`);
+  const profileId = await User.findOne({
+    where:{
+      loginStrategyId: req.session.passport.user
+    }
+  })
+  res.redirect(`users/${profileId.id}`);
 });
 
 router.get('/:id', async (req, res) => {
@@ -43,7 +48,8 @@ router.get('/:id', async (req, res) => {
     if(!userData) {
       res.send('user data not found in the database')
     } else {
-        // res.json(userData);
+      console.log("here is your data",userData);
+        // res.json(userData.Orders[0].id);
       res.render('userList', {
         locals: {
           isAuthenticated: req.isAuthenticated(),
