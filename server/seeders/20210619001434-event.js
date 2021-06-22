@@ -18,7 +18,7 @@ module.exports = {
       food1Name: "Hot Dog",
       food1Count: 0,
       food2Name: "Cheese Burger",
-      food1Count: 0,
+      food2Count: 0,
       food3Name: null,
       food3Count: null,
       hostUserId: 1,
@@ -43,7 +43,7 @@ module.exports = {
     food2Count: 0,
     food3Name: null,
     food3Count: null,
-    hostUserId: 3,
+    hostUserId: 2,
     contactEmail: 'stooge3Event@nasa.gov',
     createdAt: new Date(),
     updatedAt: new Date()
