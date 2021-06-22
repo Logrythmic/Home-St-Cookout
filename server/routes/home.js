@@ -28,7 +28,7 @@ router.get('/', (req,res)=>{
 //                                CREATE                                       
 // ----------------------------------------------------------------------------
 router.post('/create-event', async (req,res)=>{
-  const { eventName,eventStart,eventEnd,address,address2,
+  const { eventName,eventStart,eventEnd,eventInfo,address,address2,
     city,state,zip,numAttendee,numOrders,food1Name,
     food2Name,food3Name,hostUserId,contactEmail, } = req.body;
 
@@ -37,6 +37,7 @@ router.post('/create-event', async (req,res)=>{
       eventName: eventName ,
       eventStart: eventStart ,
       eventEnd: eventEnd ,
+      eventInfo: eventInfo,
       address: address ,
       address2: address2 ,
       city: city ,

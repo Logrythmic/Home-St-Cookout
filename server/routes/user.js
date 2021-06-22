@@ -51,8 +51,6 @@ router.get('/profile', isAuth, async (req, res) => {
         ]
       },
       include:[{
-        model: Order
-      },{
         model: Event
       }]
     });
