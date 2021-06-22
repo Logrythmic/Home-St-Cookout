@@ -38,7 +38,45 @@ router.get('/profile', isAuth, async (req, res) => {
       loginStrategyId: req.session.passport.user
     }
   })
-  res.redirect(`users/${profileId.id}`);
+  const id = profileId.id
+  try{
+    if(!id) {
+      res.status(404).send("profile id is missing").redirect('*');
+  } else {
+    const profileData = await User.findOne({
+      where: {
+        [Sequelize.Op.or]: [
+          {id: id},
+          {loginStrategyId: req.session.passport.user}
+        ]
+      },
+      include:[{
+        model: Event
+      }]
+    });
+    if(!profileData) {
+      res.send('user data not found in the database')
+    } else {
+      console.log("here is your data",profileData);
+        // res.json(userData.Orders[0].id);
+      res.render('userList', {
+        locals: {
+          isAuthenticated: req.isAuthenticated(),
+          userData: profileData
+        },
+        partials: {
+          footer: 'partials/footer',
+          head: 'partials/head',
+          header: 'partials/header'
+        }
+      })
+    }
+  }
+  } catch (e) {
+      console.log(e);
+      res.status(404).redirect('*');
+  }
+  // res.redirect(`users/${profileId.id}`);
 });
 
 router.get('/:id', isAuth, async (req, res) => {
