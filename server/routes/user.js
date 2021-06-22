@@ -33,11 +33,17 @@ router.get('/:id', async (req, res) => {
           {id: id},
           {loginStrategyId: id}
         ]
-      }
+      },
+      include:[{
+        model: Order
+      },{
+        model: Event
+      }]
     });
     if(!userData) {
       res.send('user data not found in the database')
     } else {
+        // res.json(userData);
       res.render('userList', {
         locals: {
           isAuthenticated: req.isAuthenticated(),

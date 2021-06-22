@@ -3,12 +3,18 @@
 ${head}
 <body>
   ${header}
-  <ul>
-    <li>${userData.id}</li>
-    <li>${userData.firstName}</li>
-    <li>${userData.email}</li>
-    <li>${userData.phoneNumber}</li>
-  </ul>
+  <main>
+    <div>
+      <h1>Hello ${userData.username}</h1>
+      <h2>Events</h2>
+      <p>You have the following order at ${userData.Events.eventName}</p>
+      <ul>
+        <li>${userData.Orders.foodQty1} orders of ${userData.Events.food1Name}</li>
+        <li>${userData.Orders.foodQty2} orders of ${userData.Events.food2Name}</li>
+      </ul>
+      <p>We hope you enjoy your meal!</p>
+    </div>
+  </main>
   ${footer}
 </body>
 </html>

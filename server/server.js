@@ -122,7 +122,7 @@ const vendorsRouter = require('./routes/vendor');
 
 app.use('/events', homeRouter);
 app.use('/users', usersRouter);
-app.use('/vendors', isAuth, vendorsRouter);
+app.use('/vendors', vendorsRouter);
 
 // ----------------------------------------------------------------------------
 //                                CATCH ALL                                    
