@@ -2,8 +2,13 @@
     font-family: 'Lato', sans-serif;
 }
 
-body {
-    background-color:#59c9fc;
+body{
+    background: #59c9fc;
+}
+
+.login{
+    background-color: #59c9fc;
+    background-size: 100%;
 }
 
 .container {
@@ -11,11 +16,29 @@ body {
     border-style: solid;
 }
 
+.nav-link{
+    color: black;
+  }
+
+
+.nav{
+    background-color: #F4B400;
+}
+
+.y-wrap{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    text-align: center;
+    background-color:#F4B400;
+}
+
 .login-div{
     margin: 100px auto;
     width: 350px;
     background-color: white;
     padding: 60px;
+    border-radius: 10px;
 }
 
 .logo{
@@ -31,7 +54,7 @@ body {
     width: 100%;
 }
 
-.title, .sub-title {
+.title, .subtitle {
     text-align: center;
     color: #505050;
 }
@@ -41,14 +64,10 @@ body {
     font-size: 22px;
 }
 
-.sub-title{
-    text-align: center;
-    font-size: 18px;
-}
 
 .signin-btn {
     width:100%;
-    padding: 12px 10px;
+    padding: 12px 5px;
     border: none;
     font-size: 18px;
     border-radius: 30px;

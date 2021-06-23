@@ -133,6 +133,19 @@ app.get('/about-us', (req, res)=>{
     }
   });
 });
+
+app.get('/create-event', (req, res)=>{
+  res.render('createEvents',{
+    locals: {
+      isAuthenticated: req.isAuthenticated()
+    },
+    partials: {
+      footer: 'partials/footer',
+      head: 'partials/head',
+      header: 'partials/header'
+    }
+  });
+});
 // ----------------------------------------------------------------------------
 //                                CATCH ALL                                    
 // ----------------------------------------------------------------------------
