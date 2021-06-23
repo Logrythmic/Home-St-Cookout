@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     eventName: DataTypes.STRING,
     eventStart: DataTypes.DATE,
     eventEnd: DataTypes.DATE,
+    eventInfo: DataTypes.STRING(280),
     address: DataTypes.STRING,
     address2: DataTypes.STRING,
     city: DataTypes.STRING,

@@ -17,6 +17,9 @@ module.exports = {
       eventEnd: {
         type: Sequelize.DATE
       },
+      eventInfo: {
+        type: Sequelize.STRING(280)
+      },
       address: {
         type: Sequelize.STRING
       },

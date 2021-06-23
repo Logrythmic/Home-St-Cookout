@@ -7,12 +7,21 @@ ${head}
     <div>
       <h1>Hello ${userData.username}</h1>
       <h2>Events</h2>
-      <p>You have the following order at ${userData.Events[0].eventName}</p>
-      <ul>
-        <li>${userData.Orders[0].foodQty1} order(s) of ${userData.Events[0].food1Name}</li>
-        <li>${userData.Orders[0].foodQty2} order(s) of ${userData.Events[0].food2Name}</li>
-      </ul>
-      <p>We hope you enjoy your meal!</p>
+      ${
+        if(userData.Events[0].eventName === undefined){
+         return `<p>You have no Events you are attending</p>`;
+        }
+        else{
+          return`
+        <p>You have the following order at ${userData.Events[0].eventName}</p>
+        <ul>
+          <li>${userData.Orders[0].foodQty1} order(s) of ${userData.Events[0].food1Name}</li>
+          <li>${userData.Orders[0].foodQty2} order(s) of ${userData.Events[0].food2Name}</li>
+        </ul>
+        <p>We hope you enjoy your meal!</p>
+          `;
+        }
+      }
     </div>
   </main>
   ${footer}
