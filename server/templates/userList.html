@@ -6,22 +6,31 @@ ${head}
   <main>
     <div>
       <h1>Hello ${userData.username}</h1>
-      <h2>Events</h2>
-      ${
-        if(userData.Events[0].eventName === undefined){
-         return `<p>You have no Events you are attending</p>`;
-        }
-        else{
-          return`
-        <p>You have the following order at ${userData.Events[0].eventName}</p>
-        <ul>
-          <li>${userData.Orders[0].foodQty1} order(s) of ${userData.Events[0].food1Name}</li>
-          <li>${userData.Orders[0].foodQty2} order(s) of ${userData.Events[0].food2Name}</li>
-        </ul>
-        <p>We hope you enjoy your meal!</p>
-          `;
-        }
-      }
+      <h2>You are hosting the following events:</h2>
+      <div class="event-table">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">eventID</th>
+              <th scope="col">Event Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">Time</th>
+              <th scope="col"># Attendees</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${userData.Events.map(event => `
+              <tr>
+                <th scope="row">${event.id}</th>
+                <td>${event.eventName}</td>
+                <td>${event.address} ${event.address2} ${event.city}, ${event.state}${event.zip}</td>
+                <td>${event.eventStart}</td>
+                <td>${event.numAttendee}</td>
+              </tr>
+              `)}
+          </tbody>
+        </table>
+      </div>
     </div>
   </main>
   ${footer}

@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     foodQty3: DataTypes.INTEGER,
     eventId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    eventDate: DataTypes.DATE
+    eventDate: DataTypes.DATEONLY
   }, {
     sequelize,
     modelName: 'Order',
