@@ -73,18 +73,6 @@ app.use('/', express.static(__dirname + '/public'));
 // },
 // }));
 
-// function isAuth(req,res,next){
-//   if(req.isAuthenticated()){
-//      return next();
-//   } 
-  
-//   res.redirect('/login');
-//    
-// }
-
-// app.get('/', (req, res) =>{
-//   res.render('dashboard');
-// })
 
 app.get('/login', (req,res) =>{
   if(req.user){

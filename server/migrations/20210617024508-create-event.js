@@ -12,10 +12,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       eventStart: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       eventEnd: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       eventInfo: {
         type: Sequelize.STRING(280)

@@ -7,10 +7,10 @@ const { User, Event, Order } = require('../models');
 //                                READ                                       
 // ----------------------------------------------------------------------------
 
-router.get('/', (req,res)=>{
+router.get('/', async (req,res)=>{
 
-  const events = Event.findAll()
-
+  const events = await Event.findAll()
+  res.json(events);
   res.render('home',{
     locals: {
       isAuthenticated: req.isAuthenticated(),
@@ -29,8 +29,7 @@ router.get('/', (req,res)=>{
 // ----------------------------------------------------------------------------
 router.post('/create-event', async (req,res)=>{
   const { eventName,eventStart,eventEnd,eventInfo,address,address2,
-    city,state,zip,numAttendee,numOrders,food1Name,
-    food2Name,food3Name,hostUserId,contactEmail, } = req.body;
+    city,state,zip,hostUserId } = req.body;
 
   const newEvent = await Event.findOrCreate({
     where:{
@@ -43,15 +42,8 @@ router.post('/create-event', async (req,res)=>{
       city: city ,
       state: state ,
       zip: zip ,
-      numAttendee:numAttendee ,
-      numOrders:numOrders ,
-      food1Name:food1Name ,
-      food1Count: 0,
-      food2Name: food2Name ,
-      food2Count: 0,
-      food3Name: food3Name ,
-      food3Count: 0,
-      hostUserId: hostUserId ,      contactEmail: contactEmail
+      numAttendee: 0 ,
+      hostUserId: hostUserId
     }
   });
   res.json({
@@ -66,13 +58,27 @@ router.post('/create-event', async (req,res)=>{
 // ----------------------------------------------------------------------------
 router.post('/updated-event/:id', async (req,res)=>{
   const { id } = req.params;
-  const { eventName,eventStart,eventEnd,address,address2,
+  const { eventName,eventStart,eventEnd,eventInfo,address,address2,
     city,state,zip,numAttendee,numOrders,food1Name,
     food2Name,food3Name,hostUserId,contactEmail, } = req.body;
 
   const updatedEvent = await Event.update(req.body,{
     where:{
       id
+    }
+  });
+  res.json(updatedEvent)
+});
+
+router.post('/update-attendees/:id', async (req,res)=>{
+  const { id } = req.params;
+  // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
+  //   city,state,zip,numAttendee,numOrders,food1Name,
+  //   food2Name,food3Name,hostUserId,contactEmail, } = req.body;
+  
+  const updatedEvent = await Event.update({ numAttendee: Sequelize.literal('"numAttendee" + 1') },{
+    where:{
+      id: id
     }
   });
   res.json(updatedEvent)
