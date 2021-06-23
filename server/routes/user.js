@@ -57,7 +57,7 @@ router.get('/profile', isAuth, async (req, res) => {
     if(!profileData) {
       res.send('user data not found in the database')
     } else {
-      console.log("here is your data",profileData);
+      // console.log("here is your data",profileData);
         // res.json(userData.Orders[0].id);
       res.render('userList', {
         locals: {
