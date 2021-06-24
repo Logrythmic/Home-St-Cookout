@@ -3,14 +3,12 @@
     <li class="nav-item">
       <a class="nav-link" href="/events">Home</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/users/profile">User Profile</a>
-    </li>
     ${
       !isAuthenticated ?
         `<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>` :
-        `<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-        <li class="nav-item"><a class="nav-link" href="/create-event">Create Event</a></li>`
+        `<li class="nav-item"><a class="nav-link" href="/create-event">Create Event</a></li>
+        <li class="nav-item"><a class="nav-link" href="/users/profile">User Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>`
     }
     <li class="nav-item">
       <a class="nav-link" href="/about-us">About Us</a>
