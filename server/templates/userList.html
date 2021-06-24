@@ -16,6 +16,7 @@ ${head}
               <th scope="col">Address</th>
               <th scope="col">Time</th>
               <th scope="col"># Attendees</th>
+              <th scope="col">Action(s)</th>
             </tr>
           </thead>
           <tbody>
@@ -26,8 +27,9 @@ ${head}
                 <td>${event.address} ${event.address2} ${event.city}, ${event.state}${event.zip}</td>
                 <td>${event.eventStart}</td>
                 <td>${event.numAttendee}</td>
+                <td><a method=DELETE href= /events/${event.id} >Delete Event</a></td>
               </tr>
-              `)}
+              `).join('')}
           </tbody>
         </table>
       </div>

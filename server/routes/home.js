@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Sequelize = require('sequelize');
 const { User, Event, Order } = require('../models');
+const isAuth = require('../middleware/ensureAuth');
 
 // ----------------------------------------------------------------------------
 //                                READ                                       
@@ -9,7 +10,15 @@ const { User, Event, Order } = require('../models');
 
 router.get('/', async (req,res)=>{
 
-  const events = await Event.findAll()
+  const events = await Event.findAll({
+    limit:5,
+    where:{
+      eventStart:{
+        [Sequelize.Op.gte]: new Date()
+      }
+      
+    }
+  })
   res.json(events);
   res.render('home',{
     locals: {
@@ -27,10 +36,12 @@ router.get('/', async (req,res)=>{
 // ----------------------------------------------------------------------------
 //                                CREATE                                       
 // ----------------------------------------------------------------------------
-router.post('/create-event', async (req,res)=>{
-  // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
-  //   city,state,zip} = req.body;
-  console.log(req.body);
+router.post('/create-event', isAuth, async (req,res)=>{
+  const { eventName,eventStart,eventEnd,eventInfo,address,address2,
+    city,state,zip} = req.body;
+    console.log("******************");
+    console.log(req.body);
+    console.log("******************");
   const profileId = await User.findOne({
     where:{
       loginStrategyId: req.session.passport.user
@@ -109,7 +120,7 @@ router.delete('/:id', async (req, res) => {
         id
       }
   });
-  res.json(deletedEvent);
+  res.redirect("/users/profile");
 });
 
 module.exports = router;
