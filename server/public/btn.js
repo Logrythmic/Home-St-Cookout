@@ -1,19 +1,18 @@
+const button = document.getElementById('attendBtn');
 
-const form = document.getElementById("createEvents");
-
-
-form.addEventListener('submit', function(e){
+button.addEventListener('submit',function(e){
   e.preventDefault();
   const data = new FormData(e.target);
-
   const strdata = {};
   for (let key of data.keys()) {
     strdata[key] = data.get(key)
   }
+  
+  const url = strdata.attendee
 
-  fetch("http://localhost:3030/events/create-event", {
+  fetch(`http://localhost:3030${url}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(strdata)
   })
-});
+  alert("you are now attending this event!")
+})

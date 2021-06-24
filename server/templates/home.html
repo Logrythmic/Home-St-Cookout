@@ -6,8 +6,8 @@ ${head}
   ${header}
   <main>
     <div class="events">
-      <h1>Current Events</h1>
       <div class="event-table">
+        <h1>Current Events</h1>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -17,13 +17,13 @@ ${head}
               <th scope="col">Action(s)</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="attendBtn">
             ${events.map(event => `
               <tr>
                 <td>${event.eventName}</td>
                 <td>${event.address} ${event.address2} ${event.city}, ${event.state}${event.zip}</td>
                 <td>${event.eventStart}</td>
-                <td><button>Attend Event</button></td>
+                <td><form><input name="attendee" type="hidden" value= /events/update-attendees/${event.id} ><button type="submit">Attend Event</button></form></td>
               </tr>
               `).join('')}
           </tbody>
@@ -32,5 +32,6 @@ ${head}
     </div>
   </main>
   ${footer}
+  <script src="/btn.js"></script>
 </body>
 </html>

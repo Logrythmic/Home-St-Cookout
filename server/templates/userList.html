@@ -19,7 +19,7 @@ ${head}
               <th scope="col">Action(s)</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="deleteBtn">
             ${userData.Events.map(event => `
               <tr>
                 <th scope="row">${event.id}</th>
@@ -27,7 +27,7 @@ ${head}
                 <td>${event.address} ${event.address2} ${event.city}, ${event.state}${event.zip}</td>
                 <td>${event.eventStart}</td>
                 <td>${event.numAttendee}</td>
-                <td><a method=DELETE href= /events/${event.id} >Delete Event</a></td>
+                <td><form><input name="deleted" type="hidden" value= /events/${event.id} ><button type="submit">Delete Event</button></form></td>
               </tr>
               `).join('')}
           </tbody>
@@ -36,5 +36,6 @@ ${head}
     </div>
   </main>
   ${footer}
+  <script src="/delete.js"></script>
 </body>
 </html>

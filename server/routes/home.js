@@ -19,7 +19,7 @@ router.get('/', async (req,res)=>{
       
     }
   })
-  res.json(events);
+
   res.render('home',{
     locals: {
       isAuthenticated: req.isAuthenticated(),
@@ -107,7 +107,8 @@ router.post('/update-attendees/:id', isAuth, async (req,res)=>{
       id: id
     }
   });
-  res.json(updatedEvent)
+  
+  res.status(200).send("You are now attending this event!");
 });
 
 // ----------------------------------------------------------------------------
