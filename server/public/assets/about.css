@@ -1,0 +1,37 @@
+*{
+  font-family: 'Lato', sans-serif; 
+}
+
+body{
+  background-color: #59c9fc;
+}
+
+.abouts{
+    display: flex;
+    flex: grid;
+    flex-wrap: wrap;
+    background-color: #59c9fc;
+  }
+
+  .nav-link{
+    color: black;
+  }
+  
+
+  .nav{
+    background-color: #F4B400;
+}
+
+  .y-wrap{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    text-align: center;
+    background-color:#F4B400;
+}
+
+  .card-title{
+    background-color: white;
+  }
+
+ 

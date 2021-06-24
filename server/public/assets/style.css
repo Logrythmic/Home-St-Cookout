@@ -1,0 +1,49 @@
+*{
+  font-family: 'Lato', sans-serif;
+}
+
+body{
+  background-color: #59c9fc; 
+}
+
+main{
+  margin-bottom: 50px;
+}
+
+.events{
+  background-color: #59c9fc;
+  display: flex;
+  flex: grid;
+  flex-wrap: wrap;
+}
+
+.button {
+  float: right;
+}
+
+.card-title{
+  font-size: 2rem;
+  text-align: center;
+}
+
+.nav{
+  background-color: #F4B400;
+}
+
+.nav-link{
+  color: black;
+}
+
+.y-wrap{
+  position: absolute;
+  bottom:0;
+  width: 100%;
+  text-align: center;
+  background-color:#F4B400;
+
+}
+
+.card-text{
+  font-size: 1rem;
+  text-align: center;
+}

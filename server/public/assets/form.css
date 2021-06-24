@@ -1,0 +1,41 @@
+
+*{
+    font-family: 'Lato', sans-serif;
+  }
+  
+  .col-md-6 {
+    display: flex;
+    justify-content: space-between;
+    margin: 14px 0;
+  }
+  
+  label {
+    display: inline-block;
+    min-width: 100px;
+  }
+  
+  button {
+    bottom: 50px;
+    right: 50px;
+  }
+
+  .y-wrap{
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    text-align: center;
+    background-color:#F4B400;
+  
+  }
+
+  .nav{
+    background-color: #F4B400;
+  }
+
+  .nav-link{
+    color: black;
+  }
+
+  body{
+    background-color: #59c9fc; 
+  }
