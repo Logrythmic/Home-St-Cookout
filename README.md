@@ -8,7 +8,7 @@ They can also view and attend events by other users from the home page.
 
 ## Resources
 - Github: https://github.com/Logrythmic/Home-St-Cookout
-- Live Link: TBD
+- Live Link: https://fast-fortress-90019.herokuapp.com/
 
 ## Developer Instructions
 - 
