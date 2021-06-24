@@ -1,23 +1,17 @@
 # Home-St-Cookout
 
 ## Description
-This application will allow two sets of users, vendors & consumers, to participate in or host pop-up restaurant/food events in their local areas.
+This application will allow users to participate in or host events in their local areas.
 
-The app will contain the following features:
-- For Vendors:
-- - Event creation
-- - Menu updates
-- - Order managment
-
-- For Consumers:
-- - Local event board
-- - RSVP
-- - Pre-Order
-- - Calender Reminders
+Users can create events and track the number of attendees for each event they host.
+They can also view and attend events by other users from the home page.
 
 ## Resources
 - Github: https://github.com/Logrythmic/Home-St-Cookout
 - Live Link: TBD
+
+## Developer Instructions
+- 
 
 
 ## Team Members
