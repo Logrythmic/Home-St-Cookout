@@ -171,7 +171,7 @@ app.get('*', (req, res)=>{
 // ----------------------------------------------------------------------------
 
 
-app.listen('3030', ()=>{
+app.listen(process.env.Port, ()=>{
   console.log('Server is running at port 3030');
 })
 

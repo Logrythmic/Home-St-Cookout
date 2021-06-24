@@ -22,7 +22,7 @@ module.exports = {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     host: process.env.HOST,
-    port: 5432,
+    port: process.env.PORT,
     dialect: 'postgres'
   }
 };
