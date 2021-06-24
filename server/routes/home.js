@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Sequelize = require('sequelize');
 const { User, Event, Order } = require('../models');
+const isAuth = require('../middleware/ensureAuth');
 
 // ----------------------------------------------------------------------------
 //                                READ                                       
@@ -9,8 +10,16 @@ const { User, Event, Order } = require('../models');
 
 router.get('/', async (req,res)=>{
 
-  const events = await Event.findAll()
-  res.json(events);
+  const events = await Event.findAll({
+    limit:5,
+    where:{
+      eventStart:{
+        [Sequelize.Op.gte]: new Date()
+      }
+      
+    }
+  })
+
   res.render('home',{
     locals: {
       isAuthenticated: req.isAuthenticated(),
@@ -27,10 +36,12 @@ router.get('/', async (req,res)=>{
 // ----------------------------------------------------------------------------
 //                                CREATE                                       
 // ----------------------------------------------------------------------------
-router.post('/create-event', async (req,res)=>{
-  // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
-  //   city,state,zip} = req.body;
-  console.log(req.body);
+router.post('/create-event', isAuth, async (req,res)=>{
+  const { eventName,eventStart,eventEnd,eventInfo,address,address2,
+    city,state,zip} = req.body;
+    console.log("******************");
+    console.log(req.body);
+    console.log("******************");
   const profileId = await User.findOne({
     where:{
       loginStrategyId: req.session.passport.user
@@ -71,7 +82,7 @@ router.post('/create-event', async (req,res)=>{
 // ----------------------------------------------------------------------------
 //                                UPDATE                                       
 // ----------------------------------------------------------------------------
-router.post('/updated-event/:id', async (req,res)=>{
+router.post('/updated-event/:id', isAuth, async (req,res)=>{
   const { id } = req.params;
   const { eventName,eventStart,eventEnd,eventInfo,address,address2,
     city,state,zip,numAttendee,numOrders,food1Name,
@@ -85,7 +96,7 @@ router.post('/updated-event/:id', async (req,res)=>{
   res.json(updatedEvent)
 });
 
-router.post('/update-attendees/:id', async (req,res)=>{
+router.post('/update-attendees/:id', isAuth, async (req,res)=>{
   const { id } = req.params;
   // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
   //   city,state,zip,numAttendee,numOrders,food1Name,
@@ -96,20 +107,21 @@ router.post('/update-attendees/:id', async (req,res)=>{
       id: id
     }
   });
-  res.json(updatedEvent)
+  
+  res.status(200).send("You are now attending this event!");
 });
 
 // ----------------------------------------------------------------------------
 //                                DELETE                                       
 // ----------------------------------------------------------------------------
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   const deletedEvent = await Event.destroy({
       where: {
         id
       }
   });
-  res.json(deletedEvent);
+  res.redirect("/users/profile");
 });
 
 module.exports = router;

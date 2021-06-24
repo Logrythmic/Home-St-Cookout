@@ -22,8 +22,14 @@ module.exports = {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     host: process.env.HOST,
-    port: 5432,
-    dialect: 'postgres'
+    port: process.env.PORT,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+          require: true,
+          rejectUnauthorized: false
+      }
+  }
   }
 };
 
