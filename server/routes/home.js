@@ -28,27 +28,42 @@ router.get('/', async (req,res)=>{
 //                                CREATE                                       
 // ----------------------------------------------------------------------------
 router.post('/create-event', async (req,res)=>{
-  const { eventName,eventStart,eventEnd,eventInfo,address,address2,
-    city,state,zip,hostUserId } = req.body;
-
-  const newEvent = await Event.findOrCreate({
+  // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
+  //   city,state,zip} = req.body;
+  console.log(req.body);
+  const profileId = await User.findOne({
     where:{
-      eventName: eventName ,
-      eventStart: eventStart ,
-      eventEnd: eventEnd ,
-      eventInfo: eventInfo,
-      address: address ,
-      address2: address2 ,
-      city: city ,
-      state: state ,
-      zip: zip ,
-      numAttendee: 0 ,
-      hostUserId: hostUserId
+      loginStrategyId: req.session.passport.user
     }
-  });
-  res.json({
-    newEvent
-  }).send("New event ", newEvent.firstName, "created");
+  })
+  const id = profileId.id
+  try{
+    if(!id) {
+      res.status(404).send("profile id is missing").redirect('*');
+    } else {
+        const newEvent = await Event.findOrCreate({
+          where:{
+            eventName: eventName ,
+            eventStart: eventStart ,
+            eventEnd: eventEnd ,
+            eventInfo: eventInfo,
+            address: address ,
+            address2: address2 ,
+            city: city ,
+            state: state ,
+            zip: zip ,
+            numAttendee: 0 ,
+            hostUserId: id
+          }
+        });
+        res.json({
+          newEvent
+        }).send("New event ", newEvent.firstName, "created");
+      }
+  } catch (e) {
+    console.log(e);
+    res.status(404).redirect('*');
+  }
 });
 
 
