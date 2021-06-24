@@ -9,28 +9,30 @@ const { profile } = require('console');
 //                                READ                                       
 // ----------------------------------------------------------------------------
 
-router.get('/', async (req,res)=>{
-  const users = await User.findAll();  
-  res.json(users)
-})
+//  Commented out to ensure users dont access other users data
+// router.get('/',isAuth, async (req,res)=>{
+//   const users = await User.findAll();  
+//   res.json(users)
+// })
 
-router.get('/my-events', async (req,res)=>{
-  const proId = await User.findOne({
-    where:{
-      loginStrategyId: req.session.passport.user
-    }
-  })
-  const id = proId.id;
-  const events = await Order.findAll({
-    where:{
-      userId : id
-    },
-    include:[{
-      model: Event
-    }]
-  });  
-  res.json(events)
-})
+//  route temporarily closed as it may not need to be used due to profile page
+// router.get('/my-events', async (req,res)=>{
+//   const proId = await User.findOne({
+//     where:{
+//       loginStrategyId: req.session.passport.user
+//     }
+//   })
+//   const id = proId.id;
+//   const events = await Order.findAll({
+//     where:{
+//       userId : id
+//     },
+//     include:[{
+//       model: Event
+//     }]
+//   });  
+//   res.json(events)
+// })
 
 router.get('/profile', isAuth, async (req, res) => {
   const profileId = await User.findOne({
@@ -57,8 +59,6 @@ router.get('/profile', isAuth, async (req, res) => {
     if(!profileData) {
       res.send('user data not found in the database')
     } else {
-      // console.log("here is your data",profileData);
-        // res.json(userData.Orders[0].id);
       res.render('userList', {
         locals: {
           isAuthenticated: req.isAuthenticated(),
@@ -76,51 +76,52 @@ router.get('/profile', isAuth, async (req, res) => {
       console.log(e);
       res.status(404).redirect('*');
   }
-  // res.redirect(`users/${profileId.id}`);
 });
 
-router.get('/:id', isAuth, async (req, res) => {
-  const { id } = req.params;
-  try{
-    if(!id) {
-      res.status(404).send("profile id is missing").redirect('*');
-  } else {
-    const userData = await User.findOne({
-      where: {
-        [Sequelize.Op.or]: [
-          {id: id},
-          {loginStrategyId: id}
-        ]
-      },
-      include:[{
-        model: Order
-      },{
-        model: Event
-      }]
-    });
-    if(!userData) {
-      res.send('user data not found in the database')
-    } else {
-      console.log("here is your data",userData);
-        // res.json(userData.Orders[0].id);
-      res.render('userList', {
-        locals: {
-          isAuthenticated: req.isAuthenticated(),
-          userData
-        },
-        partials: {
-          footer: 'partials/footer',
-          head: 'partials/head',
-          header: 'partials/header'
-        }
-      })
-    }
-  }
-  } catch (e) {
-      console.log(e);
-      res.status(404).redirect('*');
-  }
-});
+// was superceded by the profile endpoint
+
+// router.get('/:id', isAuth, async (req, res) => {
+//   const { id } = req.params;
+//   try{
+//     if(!id) {
+//       res.status(404).send("profile id is missing").redirect('*');
+//   } else {
+//     const userData = await User.findOne({
+//       where: {
+//         [Sequelize.Op.or]: [
+//           {id: id},
+//           {loginStrategyId: id}
+//         ]
+//       },
+//       include:[{
+//         model: Order
+//       },{
+//         model: Event
+//       }]
+//     });
+//     if(!userData) {
+//       res.send('user data not found in the database')
+//     } else {
+//       console.log("here is your data",userData);
+//         // res.json(userData.Orders[0].id);
+//       res.render('userList', {
+//         locals: {
+//           isAuthenticated: req.isAuthenticated(),
+//           userData
+//         },
+//         partials: {
+//           footer: 'partials/footer',
+//           head: 'partials/head',
+//           header: 'partials/header'
+//         }
+//       })
+//     }
+//   }
+//   } catch (e) {
+//       console.log(e);
+//       res.status(404).redirect('*');
+//   }
+// });
 
 // ----------------------------------------------------------------------------
 //                                CREATE                                       

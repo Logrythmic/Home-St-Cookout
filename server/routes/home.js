@@ -82,7 +82,7 @@ router.post('/create-event', isAuth, async (req,res)=>{
 // ----------------------------------------------------------------------------
 //                                UPDATE                                       
 // ----------------------------------------------------------------------------
-router.post('/updated-event/:id', async (req,res)=>{
+router.post('/updated-event/:id', isAuth, async (req,res)=>{
   const { id } = req.params;
   const { eventName,eventStart,eventEnd,eventInfo,address,address2,
     city,state,zip,numAttendee,numOrders,food1Name,
@@ -96,7 +96,7 @@ router.post('/updated-event/:id', async (req,res)=>{
   res.json(updatedEvent)
 });
 
-router.post('/update-attendees/:id', async (req,res)=>{
+router.post('/update-attendees/:id', isAuth, async (req,res)=>{
   const { id } = req.params;
   // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
   //   city,state,zip,numAttendee,numOrders,food1Name,
@@ -113,7 +113,7 @@ router.post('/update-attendees/:id', async (req,res)=>{
 // ----------------------------------------------------------------------------
 //                                DELETE                                       
 // ----------------------------------------------------------------------------
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuth, async (req, res) => {
   const { id } = req.params;
   const deletedEvent = await Event.destroy({
       where: {
