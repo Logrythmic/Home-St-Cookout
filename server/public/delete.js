@@ -18,4 +18,5 @@ button.addEventListener('submit',function(e){
       headers: {'Content-Type': 'application/json'},
   })
   alert("your event has been deleted");
+  location.reload();
 })
