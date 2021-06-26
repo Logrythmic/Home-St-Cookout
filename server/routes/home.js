@@ -31,6 +31,7 @@ router.post('/create-event', async (req,res)=>{
   // const { eventName,eventStart,eventEnd,eventInfo,address,address2,
   //   city,state,zip} = req.body;
   console.log(req.body);
+  console.log("hi");
   const profileId = await User.findOne({
     where:{
       loginStrategyId: req.session.passport.user
