@@ -13,7 +13,7 @@ button.addEventListener('submit',function(e){
 
   const url = strdata.deleted
   console.log(url);
-  fetch(`http://localhost:3030${url}`, {
+  fetch(`http://localhost:8080${url}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'},
   })

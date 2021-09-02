@@ -7,6 +7,8 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const Sequelize = require('sequelize');
 const { User } = require('./models');
+
+const {PORT} = process.env;
   
 app.engine('html', es6Renderer);
 app.set('views', 'server/templates');
@@ -171,7 +173,7 @@ app.get('*', (req, res)=>{
 // ----------------------------------------------------------------------------
 
 
-app.listen("3030", ()=>{
-  console.log('Server is running at port 3030');
+app.listen(PORT, ()=>{
+  console.log(`Server is running at port ${PORT}`);
 })
 

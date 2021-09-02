@@ -11,7 +11,7 @@ form.addEventListener('submit', function(e){
     strdata[key] = data.get(key)
   }
 
-  fetch("http://localhost:3030/events/create-event", {
+  fetch("http://localhost:8080/events/create-event", {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(strdata)

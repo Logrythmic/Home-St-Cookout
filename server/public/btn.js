@@ -10,7 +10,7 @@ button.addEventListener('submit',function(e){
   
   const url = strdata.attendee
 
-  fetch(`http://localhost:3030${url}`, {
+  fetch(`http://localhost:8080${url}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
   })
