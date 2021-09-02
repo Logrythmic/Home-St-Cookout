@@ -59,7 +59,7 @@ passport.deserializeUser(function(id, cb){
 
 // app.use(session(sess));
 // app.use(express.static('server/public'));
-app.use('/', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/templates'));
 
 // ----------------------------------------------------------------------------
 //                                  Auth Routes                                

@@ -20,7 +20,7 @@ router.get('/', async (req,res)=>{
     }
   })
 
-  res.render('home',{
+  res.render('index',{
     locals: {
       isAuthenticated: req.isAuthenticated(),
       events
