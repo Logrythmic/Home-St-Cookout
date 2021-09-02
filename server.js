@@ -11,7 +11,7 @@ const { User } = require('./models');
 const {PORT} = process.env;
   
 app.engine('html', es6Renderer);
-app.set('views', 'server/templates');
+app.set('views', 'templates');
 app.set('view engine', 'html');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
